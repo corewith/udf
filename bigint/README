@@ -1,0 +1,29 @@
+/*
+ *
+ */
+
+Implement the basic arithmetic operation of bigint
+
+Demo
+
+const char *a="123456678910";
+BigInt_List l_a=string_to_list(a);
+char *result=list_to_string(l_a);
+
+// init
+BigInt_List l=bigint_init();
+
+// addition
+l_c=bigint_add(l_a,l_b);
+// substraction  Note: a>=b is needed.
+l_c=bigint_sub(l_a,l_b);
+// multiply
+l_c=bigint_multiply(l_a,l_b);
+// divide
+l_c=bigint_divide(l_a,l_b);
+// modula
+l_c=bigint_divide(l_a,l_b);
+// compare
+int i=bigint_cmp(l_a,l_b); // return 0,1,-1
+
+All have tested, for the moment, there is no problem.
