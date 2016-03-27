@@ -71,7 +71,8 @@ my_bool
 udf_sum_add(UDF_INIT *const initid, UDF_ARGS *const args,
                 char *const is_null, char *const error)
 {
-	std::cerr << "1. the value of args:           " << args->args[0] << "\n";
+	std::cerr << "1. the value of args->args[0]:       " << args->args[0] << "\n";
+	std::cerr << "length of args:" << *(args->lengths) << "\n";
     agg_state *const as = reinterpret_cast<agg_state *>(initid->ptr);   
     //
     DoubleListTree e;
