@@ -71,13 +71,13 @@ my_bool
 udf_sum_add(UDF_INIT *const initid, UDF_ARGS *const args,
                 char *const is_null, char *const error)
 {
-	//std::cerr << "1. the value of args:           " << args->args[0] << "\n";
+	std::cerr << "1. the value of args:           " << args->args[0] << "\n";
     agg_state *const as = reinterpret_cast<agg_state *>(initid->ptr);   
     //
     DoubleListTree e;
     if (NULL == args->args[0]) {
         e = string_to_tree("193#2923656193063716479"); //0
-        //std::cerr << "there is a NULL value" << "\n";
+        std::cerr << "there is a NULL value" << "\n";
     } else {
         e = string_to_tree(args->args[0]);
     }
