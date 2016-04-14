@@ -72,7 +72,10 @@ udf_sum_add(UDF_INIT *const initid, UDF_ARGS *const args,
                 char *const is_null, char *const error)
 {
 	std::cerr << "1. the value of args->args[0]:       " << args->args[0] << "\n";
-	std::cerr << "length of args:" << *(args->lengths) << "\n";
+	// std::cerr << "the value of args->args[1]:          " << args->args[1] << "\n";  // maybe error.
+	std::cerr << "length of args:                      " << *(args->lengths) << "\n";
+	// std::cerr << "attributes name:                     " << args->attributes[0] << "\n";   // value
+	// std::cerr << "attributes length:                   " << *(args->attribute_lengths) << "\n"; // 0
     agg_state *const as = reinterpret_cast<agg_state *>(initid->ptr);   
     //
     DoubleListTree e;
@@ -89,7 +92,9 @@ udf_sum_add(UDF_INIT *const initid, UDF_ARGS *const args,
     	as->sum=tree_add(as->sum,e);
 	}
     //std::cerr << "3. sum so far:                  " << tree_to_string(as->sum) << "\n";
-    memset(args->args[0],0,strlen(args->args[0]));
+    // memset(args->args[0],0,256);
+    // memset(args->args[0],0,*(args->lengths));
+    memset(args->args[0],0,sizeof(args->args[0]));
     return true;
 }
 
