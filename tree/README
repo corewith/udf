@@ -1,0 +1,22 @@
+/*
+ *
+ */
+
+Implement the DoubleListTree to sum the encoded and encrypted floating-points.
+
+Demo
+
+// init
+DoubleListTree tree=tree_init();
+
+// string --> DoubleList
+const char* s="193#1036918145204392068#457069195069273688#461195632084542345"
+DoubleListTree tree=string_to_tree(s);
+
+// DoubleList --> string
+char *s=tree_to_string(tree);
+
+// addition
+DoubleListTree sum=tree_add(t_a,t_b);
+
+All have tested, for the moment, there is no problem.

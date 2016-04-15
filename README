@@ -1,0 +1,52 @@
+--First compile the bigint.c in bigint file
+
+g++ -shared -fPIC -o libbigint.so bigint.c
+cp bigint.h /usr/include
+cp libbigint.so /usr/lib
+
+--Then compile the tree.cc in tree file
+
+g++ -shared -fPIC -o libtree.so tree.cc -lbigint
+cp tree.h /usr/include
+cp libtree.so /usr/lib
+
+--Then compile the udf_sum.cc in udf_sum1 file
+
+g++ -shared -fPIC -I /usr/include/mysql -o udf_sum.so udf_sum.cc -ltree
+cp udf_sum.so /usr/lib/mysql/plugin
+
+--Login in MySQL
+
+mysql -u root -p
+
+--Create the aggregate function
+
+create aggregate function udf_sum returns string soname 'udf_sum.so';
+
+--Call the function on table.
+
+select udf_sum(value) from demo;
+
+--The metadata info of table demo as follows:
+
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| value | varchar(256) | YES  |     | NULL    |                |
+| flag  | int(11)      | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+
+--The test data
+
++----+-----------------------------------------------------------------+------+
+| id | value                                                           | flag |
++----+-----------------------------------------------------------------+------+
+|  1 | 061#4524606281467771741#4934129552205978194#3797980993627005053 |    1 |
+|  2 | 062#2862566281994600889#5152761171197618548                     |    1 |
+|  3 | 193#1036918145204392068#457069195069273688#461195632084542345   |    0 |
+|  4 | 062#5934912459893901914#6709299173337938569                     |    1 |
+|  5 | 194#7362255344681953016#402387962970612112#2216779911500839049  |    0 |
+|  6 | 193#2829709720878020292#3869197972913222860                     |    0 |
++----+-----------------------------------------------------------------+------+
+
